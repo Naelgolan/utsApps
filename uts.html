@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Online bookstore</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #52b46a;
+      --dark-color: #2d3436;
+      --light-color: #f5f6fa;
+      --accent-color: #74b9ff;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      line-height: 1.6;
+      color: var(--dark-color);
+      margin: 0;
+      padding: 0;
+      background-color: var(--light-color);
+    }
+
+    header {
+      background-color: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      position: fixed;
+      width: 100%;
+      z-index: 1000;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 5%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: var(--primary-color);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+    }
+
+    .nav-links li {
+      margin-left: 2rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--dark-color);
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary-color);
+    }
+
+    .hero {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 0 5%;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    }
+
+    .hero-content {
+      max-width: 600px;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .hero h1 span {
+      color: var(--primary-color);
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      color: #636e72;
+    }
+
+    .btn {
+      display: inline-block;
+      background-color: var(--primary-color);
+      color: white;
+      padding: 0.8rem 1.5rem;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(255, 107, 107, 0.2);
+    }
+
+    section {
+      padding: 5rem 5%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 3rem;
+      font-size: 2.5rem;
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background-color: var(--primary-color);
+    }
+
+    .kategori-section {
+      margin-bottom: 30px;
+    }
+
+    .kategori-title {
+      font-weight: bold;
+      margin-bottom: 10px;
+      font-size: 1.2rem;
+    }
+
+    .kategori-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .kategori-container p {
+      margin: 0;
+      padding: 6px 12px;
+      background-color: #f0f0f0;
+      border-radius: 8px;
+    }
+
+    .pembelian-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 30px;
+    }
+
+    .pembelian-item {
+      background-color: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+
+    .pembelian-item:hover {
+      transform: translateY(-5px);
+    }
+
+    .pembelian-image {
+      width: 100%;
+      height: 200px;
+      overflow: hidden;
+    }
+
+    .pembelian-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .pembelian-item:hover .pembelian-image img {
+      transform: scale(1.05);
+    }
+
+    .pembelian-info {
+      padding: 20px;
+    }
+
+    .pembelian-info h3 {
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+      color: var(--dark-color);
+    }
+
+    .pembelian-info p {
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      color: #636e72;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .pembelian-info .price {
+      font-size: 1.2rem;
+      color: var(--primary-color);
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .pembelian-info .btn-beli {
+      display: inline-block;
+      background-color: var(--primary-color);
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: background-color 0.3s ease;
+      font-size: 0.9rem;
+    }
+
+    .pembelian-info .btn-beli:hover {
+      background-color: #45a35e;
+    }
+
+    .KontakKami {
+      background-color: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .KontakKami p {
+      margin: 0.8rem 0;
+      color: #2d3436;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .pembelian-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  
+    <body>
+    <header>
+        <nav>
+            <a href="#" class="logo">Online bookstore</a>
+            <ul class="nav-links">
+                <li><a href="#Beranda">Beranda</a></li>
+                <li><a href="#TentangKami">Tentang Kami</a></li>
+                <li><a href="#Kategori">Kategori</a></li>
+                <li><a href="#Pembelian">Pembelian</a></li>
+                <li><a href="#KontakKami">Kontak Kami</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    </section>
+    <section id="Beranda">
+        <div class="Beranda-content">
+            <div class="Beranda">
+    <section class="hero"> 
+        <div class="hero-content">
+            <h1>Hai, Kami <span>Online bookstore</h1>
+            <p>Saya menciptakan website ini untuk memudahkan para pembeli dalam mencari dan membeli buku impian mereka. Dengan adanya website ini, proses pembelian menjadi lebih cepat, praktis, dan efisien.</p>
+        </div>
+      
+    </section>
+    <section id="TentangKami">
+        <h2 class="section-title">Tentang Kami</h2>
+        <div class="TentangKami-content">
+            <div class="TentangKami">
+                <p>Selamat datang di Online Bookstore, platform yang didedikasikan untuk mempermudah Anda dalam mencari dan membeli buku impian. Kami memahami betapa pentingnya membaca dalam kehidupan kita, dan kami percaya bahwa buku dapat membuka dunia baru, memberikan pengetahuan, dan meningkatkan kualitas hidup.</p>
+                <p>Online Bookstore hadir dengan tujuan memberikan pengalaman berbelanja buku yang praktis, cepat, dan nyaman. Dengan koleksi buku yang terus berkembang, kami menawarkan berbagai macam genre untuk semua kalangan pembaca, mulai dari fiksi, non-fiksi, pendidikan, hingga buku anak-anak. Kami ingin memastikan setiap pembeli dapat menemukan buku yang sesuai dengan minat dan kebutuhan mereka.</p>
+                <p>Dengan dukungan sistem pembelian yang mudah, Anda dapat membeli buku favorit hanya dalam beberapa klik. Kami juga menyediakan pengiriman yang cepat dan aman, serta dukungan pelanggan yang siap membantu kapan saja.</p>
+                <p>Kami berkomitmen untuk menyediakan buku berkualitas dengan harga yang terjangkau, serta memberikan pengalaman berbelanja yang menyenangkan bagi Anda. Jadi, selamat berbelanja, dan temukan buku yang akan menginspirasi dan memperkaya wawasan Anda di Online Bookstore!</p>
+            </div>
+    </section>
+    <section id="Kategori">
+        <h2 class="section-title">Kategori</h2>
+        <div class="Kategori-content">
+
+<div class="kategori-section">
+  <div class="kategori-title">Fiksi</div>
+  <div class="kategori-container">
+    <p>Fiksi Dewasa</p>
+    <p>Fiksi Remaja</p>
+    <p>Cerpen & Antologi</p>
+    <p>Romantis</p>
+    <p>Fantasi</p>
+    <p>Thriller</p>
+    <p>Sci-Fi</p>
+  </div>
+</div>
+
+<div class="kategori-section">
+  <div class="kategori-title">Nonfiksi</div>
+  <div class="kategori-container">
+    <p>Biografi</p>
+    <p>Sejarah</p>
+    <p>Agama</p>
+    <p>Self-Improvement</p>
+    <p>Psikologi</p>
+    <p>Bisnis</p>
+    <p>Sains & Teknologi</p>
+  </div>
+</div>
+
+<div class="kategori-section">
+  <div class="kategori-title">Pendidikan</div>
+  <div class="kategori-container">
+    <p>Buku Sekolah</p>
+    <p>Buku Kuliah</p>
+    <p>Ensiklopedia</p>
+    <p>Kamus</p>
+    <p>Referensi</p>
+  </div>
+</div>
+
+<div class="kategori-section">
+  <div class="kategori-title">Anak-anak</div>
+  <div class="kategori-container">
+    <p>Buku Cerita Anak</p>
+    <p>Mewarnai</p>
+    <p>Dongeng</p>
+    <p>Aktivitas Edukasi</p>
+  </div>
+</div>
+
+<div class="kategori-section">
+  <div class="kategori-title">Komik & Manga</div>
+  <div class="kategori-container">
+    <p>Manga Jepang</p>
+    <p>Komik Korea</p>
+    <p>Komik Lokal</p>
+    <p>Webtoon Cetak</p>
+  </div>
+</div>
+
+<div class="kategori-section">
+  <div class="kategori-title">Format</div>
+  <div class="kategori-container">
+    <p>Buku Cetak</p>
+    <p>E-book</p>
+    <p>Audiobook</p>
+  </div>
+</div>
+
+<div class="kategori-section">
+  <div class="kategori-title">Spesial</div>
+  <div class="kategori-container">
+    <p>Best Seller</p>
+    <p>Buku Terbaru</p>
+    <p>Diskon</p>
+    <p>Pre-Order</p>
+    <p>Rekomendasi</p>
+  </div>
+</div>
+
+
+</section>
+    <section id="Pembelian">
+        <h2 class="section-title">Pembelian</h2>
+        <div class="pembelian-grid">
+            <div class="pembelian-item">
+                <div class="pembelian-image">
+                    <img src="buku sejarah sma.jpeg" alt="Buku Sejarah SMA">
+                </div>
+                <div class="pembelian-info">
+                    <h3>Buku Sejarah SMA</h3>
+                    <p>Buku Sejarah SMA ini membahas perjalanan panjang bangsa Indonesia, dari masa prasejarah, kerajaan Hindu-Buddha dan Islam, penjajahan kolonial, hingga perjuangan kemerdekaan dan perkembangan Indonesia modern.</p>
+                    <div class="price">Rp 85.000</div>
+                    <a href="#" class="btn-beli">Beli Sekarang</a>
+                </div>
+            </div>
+
+            <div class="pembelian-item">
+                <div class="pembelian-image">
+                    <img src="buku codingan.jpeg" alt="Buku Coding">
+                </div>
+                <div class="pembelian-info">
+                    <h3>Belajar Coding</h3>
+                    <p>Buku coding ini dirancang untuk pemula hingga menengah, membahas dasar-dasar pemrograman seperti sintaks, logika, struktur data, hingga pembuatan proyek sederhana.</p>
+                    <div class="price">Rp 100.000</div>
+                    <a href="#" class="btn-beli">Beli Sekarang</a>
+                </div>
+            </div>
+
+            <div class="pembelian-item">
+                <div class="pembelian-image">
+                    <img src="buku anak.jpeg" alt="Buku Anak">
+                </div>
+                <div class="pembelian-info">
+                    <h3>Buku Anak</h3>
+                    <p>Buku anak ini penuh dengan cerita seru dan ilustrasi warna-warni yang mengajak anak-anak belajar nilai kebaikan, persahabatan, dan keberanian dengan cara yang menyenangkan.</p>
+                    <div class="price">Rp 45.000</div>
+                    <a href="#" class="btn-beli">Beli Sekarang</a>
+                </div>
+            </div>
+
+            <div class="pembelian-item">
+                <div class="pembelian-image">
+                    <img src="buku bisnis2.jpeg" alt="Buku Bisnis">
+                </div>
+                <div class="pembelian-info">
+                    <h3>Buku Bisnis</h3>
+                    <p>Buku ini memberikan wawasan praktis dan strategi efektif untuk membangun, mengelola, dan mengembangkan bisnis di era digital, cocok untuk pengusaha pemula maupun profesional.</p>
+                    <div class="price">Rp 110.000</div>
+                    <a href="#" class="btn-beli">Beli Sekarang</a>
+                </div>
+            </div>
+
+            <div class="pembelian-item">
+                <div class="pembelian-image">
+                    <img src="buku novel.jpeg" alt="Buku Novel">
+                </div>
+                <div class="pembelian-info">
+                    <h3>Buku Novel</h3>
+                    <p>Sebuah kisah penuh emosi yang membawa pembaca menyelami lika-liku kehidupan, cinta, dan konflik batin para tokohnya dalam alur cerita yang memikat dan penuh kejutan.</p>
+                    <div class="price">Rp 95.000</div>
+                    <a href="#" class="btn-beli">Beli Sekarang</a>
+                </div>
+            </div>
+
+            <div class="pembelian-item">
+                <div class="pembelian-image">
+                    <img src="buku kamus.jpeg" alt="Buku Kamus">
+                </div>
+                <div class="pembelian-info">
+                    <h3>Buku Kamus</h3>
+                    <p>Buku referensi lengkap yang menyajikan arti kata, sinonim, antonim, dan contoh penggunaan dalam kalimat — cocok untuk pelajar, penulis, dan siapa pun yang ingin memperkaya kosakata.</p>
+                    <div class="price">Rp 120.000</div>
+                    <a href="#" class="btn-beli">Beli Sekarang</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="KontakKami">
+        <h2 class="section-title">Kontak Kami</h2>
+        <div class="Kontak Kami-content">
+            <div class="KontakKami">
+                    <p><strong>Gmail:</strong> natanaelnainggolan@gmail.com</p>
+                    <p><strong>No Hp:</strong> 082163745261</p>
+                    <p><strong>Lokasi:</strong> 69QW+H44, Soropadan, Condongcatur, Kec. Depok, Kabupaten Sleman, Daerah Istimewa Yogyakarta 55281</p>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
